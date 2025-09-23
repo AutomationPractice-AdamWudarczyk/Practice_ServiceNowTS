@@ -10,7 +10,7 @@ Before you start, make sure you have the following installed:
 - Playwright installed (use `npm install playwright`)
 
 ## Features
-TBD
+-  TBD
 
 ## Project Structure
 
@@ -105,8 +105,23 @@ playwright.config.ts - `Main configuration for Playwright – sets global test o
 
 
 ## Important to remember
-TBD
+### Playwright
+- All test files must use `.spec.ts` or `.test.ts` extension to be picked up by Playwright.
+- Use `test.describe()` and `test.beforeEach()` to group and prepare tests.
+- Use `page.locator()` instead of `page.$()` – it's more robust and retry-aware.
+- - You can generate tests interactively using `npx playwright codegen <URL>`.
+
+### TypeScript
+- Use `ReturnType<typeof MyFunction>` to type inferred Page Object variables (e.g. `let login: ReturnType<typeof LoginPage>`).
+- TSConfig `paths` can be used to create clean imports like `@pages/LoginPage`.
+- Always type function parameters (`(page: Page)`), especially in Page Objects.
 
 
+
+
+## Helps
+- [Playwright Documentation] (https://playwright.dev/docs/intro)
+- [Praktyczne wprowadzenie do testów automatycznych z Playwright] https://www.youtube.com/watch?v=JqEp2cjnzAo&list=PLfKhn9AcZ-cD2TCB__K7NP5XARaCzZYn7
+- [The Only TypeScript Course You Need in 2025] (https://www.youtube.com/watch?v=K01hLNDdqg4)
 _____
 Created by Adam Wudarczyk for learning purposes
