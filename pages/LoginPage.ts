@@ -14,5 +14,21 @@ export const LoginPage = (page : Page) => {
      });
    },
 
+     loginSuccess: async (username: string, password: string) => {
+         await userInput.fill(username);
+         await passInput.fill(password);
+         await submitBtn.click();
+
+         await page.waitForURL('**/now/nav/ui/classic/**', { timeout: 20000 });
+     },
+
+     loginFailure: async (username: string, password: string) => {
+         await userInput.fill(username);
+         await passInput.fill(password);
+         await submitBtn.click();
+         await errorMsg.waitFor({ timeout: 10000 });
+     },
+
+     errorMsg,
  };
 };

@@ -1,8 +1,8 @@
 import {test, expect} from '@playwright/test';
 import { LoginPage } from '@pages/LoginPage';
+import { loadSecrets } from '@utils/config';
 
-const SN_USER = 'admin';
-const SN_PASS = 'OhluX%5cMJ2!';
+const { SNValid_USER, SNValid_PASS } = loadSecrets();
 
 test.describe ('Login tests for ServiceNow', () => {
     let login: ReturnType<typeof LoginPage>
@@ -12,14 +12,19 @@ test.describe ('Login tests for ServiceNow', () => {
         await login.goto();
     });
 
-    test('TBD', async ({ page }) => {
-        //TBD
+    test('valid login works', async ({ page }) => {
+        const login = LoginPage(page);
+        await login.goto();
+        await login.loginSuccess(SNValid_USER, SNValid_PASS);
+        await expect(page).toHaveURL(/.*now\/nav\/ui\/classic.*/);
     });
 
-    test('TBD', async ({ page }) => {
-        //TBD
+    test('invalid login fails', async ({ page }) => {
+        const login = LoginPage(page);
+        await login.goto();
+        await login.loginFailure('wrongUser', 'wrongPass');
+        await expect(login.errorMsg).toContainText(/invalid/i, { timeout: 10000 });
     });
-
 
 })
 
